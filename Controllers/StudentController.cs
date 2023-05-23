@@ -36,18 +36,18 @@ public class StudentController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<StudentDTO> CreateNewStudent([FromBody] StudentDTO model)
+    public ActionResult<StudentDTO> CreateNewStudent([FromBody] StudentDTO? model)
     {
         if (model == null)
         {
             return BadRequest("BADDD REquest");
         }
 
-        if (model.AdmissionDate < DateTime.Now)
-        {
-            ModelState.AddModelError("AdmissionDate", "Admission date must be greater than today date.");
-            return BadRequest(ModelState);
-        }
+        // if (model.AdmissionDate < DateTime.Now)
+        // {
+        //     ModelState.AddModelError("AdmissionDate", "Admission date must be greater than today date.");
+        //     return BadRequest(ModelState);
+        // }
 
         int newId = StudentRepository.Students.LastOrDefault().Id + 1;
 

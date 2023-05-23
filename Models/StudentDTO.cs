@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using shereeni_dotnet.Validators;
 
 namespace shereeni_dotnet.Models;
 
@@ -26,5 +27,6 @@ public class StudentDTO
     [Compare(nameof(Password))]
     public string ConfirmPassword { get; set; }
     
+    [DateCheck]
     public DateTime AdmissionDate { get; set; } 
 }
