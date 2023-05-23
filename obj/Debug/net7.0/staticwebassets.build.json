@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "A5cfRfY6GehHEeIlNAb0F4W9DAmGR5seqtzO5mXm7PM=",
+  "Source": "shereeni-dotnet",
+  "BasePath": "_content/shereeni-dotnet",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
