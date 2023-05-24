@@ -14,7 +14,9 @@ public class UserService : IUserService
     // since we are using async Function, so we need to use the return type to task
     public async Task<List<User>> GetAllUsers()
     {
-        var users = await _context.Users.ToListAsync();
+        var users = await _context.Users
+                                .Include(c => c.Posts)
+                                .ToListAsync();
         return users;
     }
 

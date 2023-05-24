@@ -12,7 +12,6 @@ public class User
     
     public string Password { get; set; } = string.Empty;
     
-    [JsonIgnore]
     public List<Post> Posts { get; set; }
 
 }
