@@ -1,4 +1,6 @@
 global using shereeni_dotnet.Models;
+global using shereeni_dotnet.Data;
+using Microsoft.EntityFrameworkCore;
 using shereeni_dotnet.Services.UserServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserService, UserService>();
+// builder.Services.AddDbContext<DataContext>();
+
+
+// for express - put this in the config.
+// "DefaultConnection": "Server=.\\sqlexpress;Database=shereeni;Trusted_Connection=True;TrustServerCertificate=True"
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
+                       throw new InvalidOperationException();
+builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
