@@ -1,4 +1,6 @@
-﻿namespace shereeni_dotnet.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace shereeni_dotnet.Models;
 
 public class User
 {
@@ -10,6 +12,7 @@ public class User
     
     public string Password { get; set; } = string.Empty;
     
+    [JsonIgnore]
     public List<Post> Posts { get; set; }
 
 }

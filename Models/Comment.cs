@@ -1,4 +1,6 @@
-﻿namespace shereeni_dotnet.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace shereeni_dotnet.Models;
 
 public class Comment
 {
@@ -8,5 +10,6 @@ public class Comment
 
     public int PostId { get; set; }
 
+    [JsonIgnore]
     public Post Post { get; set; }
 }
