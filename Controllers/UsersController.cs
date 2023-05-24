@@ -19,9 +19,7 @@ public class UsersController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<User>>> GetAllUsers()
     {
-        var result = _userService.GetAllUsers();
-        if (result is null)
-            return NotFound("Sorry, Nothing found.");
+        var result = await _userService.GetAllUsers();
         return Ok(result);
     }
 
@@ -29,7 +27,7 @@ public class UsersController : ControllerBase
     // [Route("{id:int}")]
     public async Task<ActionResult<User>> GetUser(int id)
     {
-        var result = _userService.GetUser(id);
+        var result = await _userService.GetUser(id);
         if (result is null)
             return NotFound("Sorry, the user doesn\'t exist.");
         return Ok(result);
@@ -38,7 +36,7 @@ public class UsersController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<User>> CreateUser([FromBody]User user)
     {
-        var result = _userService.CreateUser(user);
+        var result = await _userService.CreateUser(user);
         if (result is null)
             return NotFound("Sorry! Nothing found.");
         return Ok(result);
@@ -47,7 +45,7 @@ public class UsersController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<ActionResult<User>> UpdateUser(int id, User request)
     {
-        var result = _userService.UpdateUser(id, request);
+        var result = await _userService.UpdateUser(id, request);
         if (result is null)
             return NotFound("Sorry! Nothing found with the provided id.");
         return Ok(result);
@@ -56,7 +54,7 @@ public class UsersController : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<ActionResult<User>> DeleteUser(int id)
     {
-        var result = _userService.DeleteUser(id);
+        var result = await _userService.DeleteUser(id);
         if (result is null)
             return NotFound("Sorry! Nothing found with the provided id.");
         return Ok(result);

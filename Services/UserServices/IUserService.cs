@@ -2,13 +2,13 @@
 
 public interface IUserService
 {
-    List<User>? GetAllUsers();
+    Task<List<User>> GetAllUsers();
     
-    User? GetUser(int id);
+    Task<User> GetUser(int id);
     
-    User CreateUser(User request);
+    Task<User> CreateUser(User request);
 
-    User UpdateUser(int id, User request);
+    Task<User> UpdateUser(int id, User request);
     
-    List<User>? DeleteUser(int id);
+    Task<List<User>> DeleteUser(int id);
 }

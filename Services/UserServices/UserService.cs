@@ -1,69 +1,58 @@
-﻿namespace shereeni_dotnet.Services.UserServices;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace shereeni_dotnet.Services.UserServices;
 
 public class UserService : IUserService
 {
-    private static List<User> _users = new List<User>
+    private readonly DataContext _context;
+
+    public UserService(DataContext context)
     {
-        new User
-        {
-            Id = 1,
-            Name = "Shakil Ahmad",
-            Email = "shakilahmad@yopmail.com",
-            Password = "something"
-        },
-        new User
-        {
-            Id = 2,
-            Name = "Maria Khan",
-            Email = "mariya@yopmail.com",
-            Password = "something"
-        },
-        new User()
-        {
-            Id = 3,
-            Name = "Test User",
-            Email = "teste@yopmail.com",
-            Password = "somethingNew"
-        }
-    };
-    
-    public List<User> GetAllUsers()
-    {
-        return _users;
+        _context = context;
     }
 
-    public User? GetUser(int id)
+    // since we are using async Function, so we need to use the return type to task
+    public async Task<List<User>> GetAllUsers()
     {
-        var user = _users.Find(x => x.Id == id);
+        var users = await _context.Users.ToListAsync();
+        return users;
+    }
+
+    public async Task<User> GetUser(int id)
+    {
+        var user = await _context.Users.FindAsync(id);
         return user ?? null;
     }
 
-    public User CreateUser(User request)
+    public async Task<User> CreateUser(User request)
     {
-        _users.Add(request);
+        _context.Users.Add(request);
+        await _context.SaveChangesAsync();
         return request;
     }
 
-    public User UpdateUser(int id, User request)
+    public async Task<User> UpdateUser(int id, User request)
     {
-        var user = _users.Find(x => x.Id == id);
+        var user = await _context.Users.FindAsync(id);
         if (user is null)
             return null;
         user.Name = request.Name;
         user.Email = request.Email;
         user.Password = request.Password;
+        await _context.SaveChangesAsync();
         
         return user;
     }
 
-    public List<User> DeleteUser(int id)
+    public async Task<List<User>> DeleteUser(int id)
     {
-        var user = _users.Find(x => x.Id == id);
+        var user = await _context.Users.FindAsync(id);
         if (user is null)
             return null;
 
-        _users.Remove(user);
-        
-        return _users;
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
+
+        return await _context.Users.ToListAsync();
     }
 }
