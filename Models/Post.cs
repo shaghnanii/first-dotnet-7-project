@@ -14,9 +14,7 @@ public class Post
 
     public int UserId { get; set; }
 
-    [JsonIgnore]
     public User User { get; set; }
 
-    [JsonIgnore]
-    public List<Comment> Comments { get; set; }
+    public ICollection<Comment> Comments { get; set; }
 }

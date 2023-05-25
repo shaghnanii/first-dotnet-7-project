@@ -9,7 +9,6 @@ public class Comment
     public string Message { get; set; } = string.Empty;
 
     public int PostId { get; set; }
-
-    [JsonIgnore]
+    
     public Post Post { get; set; }
 }

@@ -11,8 +11,8 @@ using shereeni_dotnet.Data;
 namespace shereeni_dotnet.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230524162548_Posts")]
-    partial class Posts
+    [Migration("20230525081736_AddAgeColumn")]
+    partial class AddAgeColumn
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,6 +83,9 @@ namespace shereeni_dotnet.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()

@@ -11,8 +11,8 @@ using shereeni_dotnet.Data;
 namespace shereeni_dotnet.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230524162612_Comments")]
-    partial class Comments
+    [Migration("20230525081557_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

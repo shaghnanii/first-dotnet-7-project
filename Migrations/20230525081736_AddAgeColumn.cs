@@ -5,18 +5,25 @@
 namespace shereeni_dotnet.Migrations
 {
     /// <inheritdoc />
-    public partial class Comments : Migration
+    public partial class AddAgeColumn : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
+            migrationBuilder.AddColumn<int>(
+                name: "Age",
+                table: "Users",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
+            migrationBuilder.DropColumn(
+                name: "Age",
+                table: "Users");
         }
     }
 }
