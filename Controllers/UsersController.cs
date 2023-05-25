@@ -32,7 +32,7 @@ public class UsersController : ControllerBase
             return NotFound("Sorry, the user doesn\'t exist.");
         return Ok(result);
     }
-
+    
     [HttpPost]
     public async Task<ActionResult<User>> CreateUser([FromBody]User user)
     {

@@ -1,13 +1,7 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Controllers",
-    "\\Models",
-    "\\Repository",
-    "\\Services",
-    "\\Services\\UserServices",
-    "\\Validators"
+    "\\Models"
   ],
-  "SelectedNode": "\\Validators\\DateCheckAttribute.cs",
   "PreviewInSolutionExplorer": false
 }

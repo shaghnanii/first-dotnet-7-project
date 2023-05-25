@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace shereeni_dotnet.Services.UserServices;
 
@@ -14,10 +15,11 @@ public class UserService : IUserService
     // since we are using async Function, so we need to use the return type to task
     public async Task<List<User>> GetAllUsers()
     {
-        //Dapper for query -> raw queries
-        // LINQ -> eager loading
         var users = await _context.Users
+            .Include(post => post.Posts)
+            .ThenInclude(comments => comments.Comments)
             .ToListAsync();
+
         return users;
     }
 
@@ -43,7 +45,7 @@ public class UserService : IUserService
         user.Email = request.Email;
         user.Password = request.Password;
         await _context.SaveChangesAsync();
-        
+
         return user;
     }
 

@@ -1,5 +1,6 @@
 global using shereeni_dotnet.Models;
 global using shereeni_dotnet.Data;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using shereeni_dotnet.Services.UserServices;
 
@@ -14,6 +15,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserService, UserService>();
 // builder.Services.AddDbContext<DataContext>();
 
+// used to overcome the reference looping or cycle error while querying data using relations
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+});
 
 // for express - put this in the config.
 // "DefaultConnection": "Server=.\\sqlexpress;Database=shereeni;Trusted_Connection=True;TrustServerCertificate=True"
