@@ -15,10 +15,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserService, UserService>();
 // builder.Services.AddDbContext<DataContext>();
 
-// used to overcome the reference looping or cycle error while querying data using relations
-builder.Services.AddControllers().AddJsonOptions(options =>
+// used to overcome the reference looping or cycle error while querying data using relations -> new built in
+// builder.Services.AddControllers().AddJsonOptions(options =>
+// {
+//     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+// });
+
+// to overcome the reference issue or object reference cycle issue. -> third party
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });
 
 // for express - put this in the config.

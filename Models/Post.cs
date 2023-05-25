@@ -13,7 +13,7 @@ public class Post
     public string Image { get; set; } = string.Empty;
 
     public int UserId { get; set; }
-
+    
     public User User { get; set; }
 
     public ICollection<Comment> Comments { get; set; }

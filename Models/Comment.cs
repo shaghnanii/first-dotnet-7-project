@@ -10,5 +10,6 @@ public class Comment
 
     public int PostId { get; set; }
     
+    [JsonIgnore]
     public Post Post { get; set; }
 }

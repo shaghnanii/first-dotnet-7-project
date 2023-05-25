@@ -23,10 +23,14 @@ public class UserService : IUserService
         return users;
     }
 
-    public async Task<User> GetUser(int id)
+    public async Task<User?> GetUser(int id)
     {
-        var user = await _context.Users.FindAsync(id);
-        return user ?? null;
+        var result = await _context.Users
+            .Include(_ => _.Posts)
+            .ThenInclude(_ => _.Comments)
+            .Where(_ => _.Id == id)
+            .FirstOrDefaultAsync();
+        return result;
     }
 
     public async Task<User> CreateUser(User request)

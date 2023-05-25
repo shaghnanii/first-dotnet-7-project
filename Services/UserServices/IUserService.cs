@@ -4,7 +4,7 @@ public interface IUserService
 {
     Task<List<User>> GetAllUsers();
     
-    Task<User> GetUser(int id);
+    Task<User?> GetUser(int id);
     
     Task<User> CreateUser(User request);
 
