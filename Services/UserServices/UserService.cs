@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using shereeni_dotnet.Models.DTO;
+using shereeni_dotnet.Models.DTO.User;
 
 namespace shereeni_dotnet.Services.UserServices;
 
@@ -33,21 +35,51 @@ public class UserService : IUserService
         return result;
     }
 
-    public async Task<User> CreateUser(User request)
+    public async Task<User?> CreateUser(UserDTO request)
     {
-        _context.Users.Add(request);
+        var newUser = new User();
+    
+        var userDtoProperties = typeof(UserDTO).GetProperties();
+        var userProperties = typeof(User).GetProperties();
+    
+        foreach (var userDtoProperty in userDtoProperties)
+        {
+            var userProperty = userProperties.FirstOrDefault(p => p.Name == userDtoProperty.Name);
+            if (userProperty != null)
+            {
+                var value = userDtoProperty.GetValue(request);
+                userProperty.SetValue(newUser, value);
+            }
+        }
+    
+        _context.Users.Add(newUser);
         await _context.SaveChangesAsync();
-        return request;
+        
+        return newUser;
     }
 
-    public async Task<User> UpdateUser(int id, User request)
+ 
+    public async Task<User> UpdateUser(int id, UserDTO request)
     {
         var user = await _context.Users.FindAsync(id);
-        if (user is null)
+        if (user == null)
             return null;
-        user.Name = request.Name;
-        user.Email = request.Email;
-        user.Password = request.Password;
+        
+        // user.Name = request.Name;
+        // user.Email = request.Email;
+        // user.Password = request.Password;
+        // await _context.SaveChangesAsync();
+        
+        var propertiesToUpdate = typeof(UserDTO).GetProperties();
+        foreach (var property in propertiesToUpdate)
+        {
+            var requestValue = property.GetValue(request);
+            if (requestValue != null)
+            {
+                property.SetValue(user, requestValue);
+            }
+        }
+        
         await _context.SaveChangesAsync();
 
         return user;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using shereeni_dotnet.Models.DTO;
+using shereeni_dotnet.Models.DTO.User;
 
 namespace shereeni_dotnet.Controllers.Auth;
 

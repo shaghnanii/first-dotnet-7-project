@@ -15,6 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserService, UserService>();
 // builder.Services.AddDbContext<DataContext>();
 
+builder.WebHost.UseUrls("https://localhost:5000");
+
 // used to overcome the reference looping or cycle error while querying data using relations -> new built in
 // builder.Services.AddControllers().AddJsonOptions(options =>
 // {

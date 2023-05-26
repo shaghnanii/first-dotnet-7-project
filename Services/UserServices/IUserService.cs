@@ -1,4 +1,7 @@
-﻿namespace shereeni_dotnet.Services.UserServices;
+﻿using shereeni_dotnet.Models.DTO;
+using shereeni_dotnet.Models.DTO.User;
+
+namespace shereeni_dotnet.Services.UserServices;
 
 public interface IUserService
 {
@@ -6,9 +9,9 @@ public interface IUserService
     
     Task<User?> GetUser(int id);
     
-    Task<User> CreateUser(User request);
+    Task<User?> CreateUser(UserDTO request);
 
-    Task<User> UpdateUser(int id, User request);
+    Task<User> UpdateUser(int id, UserDTO request);
     
     Task<List<User>> DeleteUser(int id);
 }

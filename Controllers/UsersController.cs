@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using shereeni_dotnet.Models;
+using shereeni_dotnet.Models.DTO;
+using shereeni_dotnet.Models.DTO.User;
 using shereeni_dotnet.Services.UserServices;
 
 namespace shereeni_dotnet.Controllers;
@@ -34,16 +36,22 @@ public class UsersController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<ActionResult<User>> CreateUser([FromBody]User user)
+    public async Task<ActionResult<User>> CreateUser([FromBody]UserDTO user)
     {
-        var result = await _userService.CreateUser(user);
-        if (result is null)
-            return NotFound("Sorry! Nothing found.");
-        return Ok(result);
+        if (ModelState.IsValid)
+        {
+            var result = await _userService.CreateUser(user);
+            if (result is null)
+                return NotFound("Sorry! Nothing found.");
+            return Ok(result);
+        }
+
+        return Ok("USER NOT CREATED "); 
+
     }
     
     [HttpPut("{id:int}")]
-    public async Task<ActionResult<User>> UpdateUser(int id, User request)
+    public async Task<ActionResult<User>> UpdateUser(int id, UserDTO request)
     {
         var result = await _userService.UpdateUser(id, request);
         if (result is null)
